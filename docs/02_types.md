@@ -1,14 +1,12 @@
-# Classes
+## Classes
 
-# Methods (or Functions)
+## Methods (or Functions)
 
-Methoden/Funktionen...
-
-- ...haben einen eigenen `scope` (haben ihren eigenen Kontext)
-- ...sind Code-Blöcke, die aufgerufen werden können
-- ...können Parameter entgegennehmen (definiert runden Klammern `()`)
-- ...können einen Wert zurückgeben (müssen dann einen Typ haben)
-- ...können auch nichts zurückgeben (haben dann den Typ `void`)
+- have their own `scope` (have their own context)
+- are code blocks that can be called
+- can accept parameters (defined within round brackets `()`)
+- can return a value (must have a type in that case)
+- can also return nothing at all (then they have the type `void`)
 
 ```cs
 int Add(int a, int b) {
@@ -24,11 +22,10 @@ void DoSomethingCompletelyDifferent() {
 
 ## Variables
 
-Variablen...
-
-- ...haben einen Typ (z.B. `string`)
-- ...halten Werte (z.B. `"Hello World!"`)
-- ...können verändert werden
+- have a type (z.B. `string`)
+- can be assigned values and will store (z.B. `"Hello World!"`)
+- can be mutated (changed)
+- will live as long as their context lives (e.g. the method they were defined in)
 
 ```cs
 // Basic types
