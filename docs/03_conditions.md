@@ -1,6 +1,6 @@
 ## `if`, `else if` and `else`
 
-- Allows to execute pieces of code based on conditions
+- Allows to execute pieces of code based on conditions (type `bool`)
 
 ```csharp
 int number = 10;
