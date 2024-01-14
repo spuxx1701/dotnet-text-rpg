@@ -90,7 +90,7 @@ while (true) {
 }
 ```
 
-## `continue` und `break`
+## `continue` and `break`
 
 - In each loop, you can use `continue` to end the current iteration and start the next one.
 - In each loop, you can use `break` to immediately exit the loop.
