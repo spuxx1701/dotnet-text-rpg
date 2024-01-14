@@ -22,7 +22,7 @@ void DoSomethingCompletelyDifferent() {
 }
 ```
 
-# Variables
+## Variables
 
 Variablen...
 
