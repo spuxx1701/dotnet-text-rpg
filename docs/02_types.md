@@ -22,8 +22,8 @@ void DoSomethingCompletelyDifferent() {
 
 ## Variables
 
-- have a type (z.B. `string`)
-- can be assigned values and will store (z.B. `"Hello World!"`)
+- have a type (e.g. `string`)
+- can be assigned values and will store (e.g. `"Hello World!"`)
 - can be mutated (changed)
 - will live as long as their context lives (e.g. the method they were defined in)
 
