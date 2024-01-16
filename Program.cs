@@ -10,25 +10,15 @@ if (isPlayerNameEmpty)
 Console.WriteLine("Willkommen, " + playerName + "!");
 
 // Let the player choose what class they want to play
-string[] availableClasses = ["Magier", "Ritter", "Mönch", "Schurke"];
-Console.WriteLine("Wähle nun Deine Klasse. Die folgenden Klassen stehen zur Auswahl:");
-for (int i = 0; i < availableClasses.Length; i++)
-{
-  string availableClass = availableClasses[i];
-  Console.WriteLine("[" + i + "] " + availableClass);
-}
+string[] availableClasses = ["Magier", "Ritter", "Mönch", "Schurke", "Barde", "Druide"];
+int classSelection = Interface.AskForSelection(availableClasses);
+string selectedClass = availableClasses[classSelection];
+Console.WriteLine("Du bist ein " + selectedClass + ".");
 
-// We now ask the player to pick a class
-string? playerClassSelection = Console.ReadLine();
-// We need to check whether the player has entered a valid class
-if (int.TryParse(playerClassSelection, out int selection) && selection >= 0 && selection < availableClasses.Length)
-{
-  // Player did enter a valid number
-  Console.WriteLine("Du bist ein " + availableClasses[selection] + ".");
-}
-else
-{
-  // Player did not enter a valid number
-  Console.WriteLine("Ungültige Auswahl!");
-  return;
-}
+// // Let the player pick an origin
+Origin[] availableOrigins = [new Origin("Mensch", "Mittelreich"), new Origin("Elf", "Waldreich"), new Origin("Zwerg", "Bergreich"), new Origin("Halbling", "Auenland"), new Origin("Ork", "Dunkeltal")];
+// Transform our origins into a list of strings that we can pass to AskForSelection
+string[] originOptions = availableOrigins.Select(origin => $"Rasse: {origin.Race}, Herkunft: {origin.Homeland}").ToArray();
+int originSelection = Interface.AskForSelection(originOptions);
+Origin selectedOrigin = availableOrigins[originSelection];
+Console.WriteLine("Du bist ein " + selectedOrigin.Race + " aus dem " + selectedOrigin.Homeland + ".");

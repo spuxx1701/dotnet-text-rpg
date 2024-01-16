@@ -34,7 +34,7 @@ int i = 3;
 float f = 1.1;
 bool b = false;
 
-// Arrays contain multiple values
+// Arrays contain multiple valuesd
 string[] stringArray = ["foo", "bar"]
 int[] integerArray = [1,2,3,4,5];
 ```
