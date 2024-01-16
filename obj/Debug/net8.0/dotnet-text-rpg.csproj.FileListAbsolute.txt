@@ -12,3 +12,4 @@
 /home/leo/dev/dotnet-text-rpg/obj/Debug/net8.0/dotnet-text-rpg.pdb
 /home/leo/dev/dotnet-text-rpg/obj/Debug/net8.0/dotnet-text-rpg.genruntimeconfig.cache
 /home/leo/dev/dotnet-text-rpg/obj/Debug/net8.0/ref/dotnet-text-rpg.dll
+/home/leo/dev/dotnet-text-rpg/obj/Debug/net8.0/dotnet-text-rpg.sourcelink.json
