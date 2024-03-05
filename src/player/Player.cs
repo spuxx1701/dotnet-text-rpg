@@ -6,6 +6,7 @@ public class Player
   public int MaxHealth;
   public int CurrentHealth;
   public Weapon EquippedWeapon;
+  public int DefeatedEnemies = 0;
 
   public Player(string name, PlayerClass selectedClass, Origin origin)
   {

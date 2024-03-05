@@ -16,7 +16,6 @@ public static class CharacterCreator
     string[] originOptions = availableOrigins.Select(origin => $"Rasse: {origin.Race}, Herkunft: {origin.Homeland}, HP: {origin.BaseHealth}").ToArray();
     int originSelection = Interface.AskForSelection(originOptions);
     Origin selectedOrigin = availableOrigins[originSelection];
-    Console.WriteLine("Du bist ein " + selectedOrigin.Race + " aus dem " + selectedOrigin.Homeland + ".");
 
     // Let the player choose what class they want to play
     Weapon[] starterWeapons = [new Weapon("Stab", 8, 12), new Weapon("Schwert", 5, 15)];
@@ -24,10 +23,10 @@ public static class CharacterCreator
     string[] classOptions = availableClasses.Select(playerClass => $"{playerClass.Name}, Startwaffe: {playerClass.StarterWeapon.Name} (Schaden: {playerClass.StarterWeapon.MinDamange}-{playerClass.StarterWeapon.MaxDamage})").ToArray();
     int classSelection = Interface.AskForSelection(classOptions);
     PlayerClass selectedClass = availableClasses[classSelection];
-    Console.WriteLine("Du bist ein " + selectedClass.Name + ".");
 
     // Create the player
     Player player = new Player(playerName, selectedClass, selectedOrigin);
+    Console.WriteLine($"Du bist {player.Name}, ein {player.Origin.Race} aus dem {player.Origin.Homeland}. Deine Profession ist {player.Class.Name}.");
     return player;
   }
 }
