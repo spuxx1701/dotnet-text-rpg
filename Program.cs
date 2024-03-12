@@ -6,7 +6,7 @@ while (true)
 {
   Console.WriteLine("Du stehst im Schankraum. Was möchtest Du tun?");
   // Let the player choose what they want to do
-  GameState[] availableGameStates = [new BarGameState(), new CombatGameState(), new ExitGameState()];
+  GameState[] availableGameStates = [new BarGameState(), new CombatGameState(), new HealingGameState(), new ExitGameState()];
   string[] gameStateOptions = availableGameStates.Select(gameState => gameState.ActionName).ToArray();
   int gameStateSelection = Interface.AskForSelection(gameStateOptions);
   GameState selectedGameState = availableGameStates[gameStateSelection];
