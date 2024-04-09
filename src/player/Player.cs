@@ -17,4 +17,16 @@ public class Player
     this.CurrentHealth = origin.BaseHealth;
     this.EquippedWeapon = selectedClass.StarterWeapon;
   }
+
+  public int Attack(Enemy target)
+  {
+    Random rand = new Random();
+    int damageDealt = rand.Next(this.EquippedWeapon.MinDamange, this.EquippedWeapon.MaxDamage + 1);
+    target.TakeDamage(damageDealt);
+    if (target.IsAlive == false)
+    {
+      this.DefeatedEnemies++;
+    }
+    return damageDealt;
+  }
 }

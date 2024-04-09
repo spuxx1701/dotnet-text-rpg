@@ -12,9 +12,24 @@ public class CombatGameState : GameState
   {
     Console.WriteLine("Du suchst Dir jemanden zum Raufen.");
     Enemy[] enemies = this.DetermineEnemies();
-    Console.WriteLine("Du triffst auf folgende raufwillige Gegner:");
     this.DisplayEnemies(enemies);
-    Console.WriteLine("[TODO: Hier Combat Gameplay implementieren.]");
+    Boolean atLeastOneEnemyAlive = true;
+    while (atLeastOneEnemyAlive)
+    {
+      StartCombatRound(player, enemies);
+      atLeastOneEnemyAlive = enemies.Any(enemy => enemy.IsAlive);
+    }
+    Console.WriteLine("Du hast alle Gegner besiegt. Reschbeggt!");
+  }
+
+  private void StartCombatRound(Player player, Enemy[] enemies)
+  {
+    Console.WriteLine("Welchen Gegner möchtest Du angreifen?");
+    Enemy[] aliveEnemies = enemies.Where(enemy => enemy.IsAlive).ToArray();
+    string[] targetOptions = aliveEnemies.Select(enemy => $"{enemy.Name} (HP: {enemy.CurrentHealth}/{enemy.MaxHealth})").ToArray();
+    int targetSelection = Interface.AskForSelection(targetOptions);
+    Enemy selectedTarget = aliveEnemies[targetSelection];
+    player.Attack(selectedTarget);
   }
 
   public Enemy[] DetermineEnemies()
@@ -51,9 +66,6 @@ public class CombatGameState : GameState
 
   public void DisplayEnemies(Enemy[] enemies)
   {
-    foreach (Enemy enemy in enemies)
-    {
-      Console.WriteLine(enemy.Name);
-    }
+    Console.WriteLine($"Du triffst auf folgende raufwillige Gegner: {string.Join(", ", enemies.Select(e => e.Name))}");
   }
 }

@@ -12,8 +12,13 @@ public static class Interface
         bool isValidSelection = selection >= 0 && selection < options.Length;
         if (isValidSelection)
         {
+          string output = $"Deine Auswahl: [{selection}] {options[selection]}";
+          int outputLength = output.Length;
+          string separator = $"+{new string('-', outputLength - 2)}+";
           // If the selection is valid
-          Console.WriteLine($"Deine Auswahl: [{selection}] {options[selection]}");
+          Console.WriteLine(separator);
+          Console.WriteLine(output);
+          Console.WriteLine(separator);
           return selection;
         }
         else
