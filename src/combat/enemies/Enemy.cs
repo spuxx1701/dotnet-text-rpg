@@ -23,10 +23,17 @@ public abstract class Enemy
   public void TakeDamage(int damage)
   {
     this.CurrentHealth = CurrentHealth - damage;
-    Console.WriteLine($"Du greifst {this.Name} an und verursachst {damage} Schadenspunkte.");
+    Interface.WriteLine($"Du greifst {this.Name} an und verursachst {damage} Schadenspunkte.");
     if (this.IsAlive == false)
     {
-      Console.WriteLine($"Du hast {this.Name} besiegt!");
+      Interface.WriteLine($"Du hast {this.Name} besiegt!");
     }
+  }
+
+  public void Attack(Player target)
+  {
+    Random rand = new Random();
+    int damageDealt = rand.Next(this.MinDamage, this.MaxDamage + 1);
+    target.TakeDamage(damageDealt, this);
   }
 }

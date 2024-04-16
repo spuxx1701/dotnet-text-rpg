@@ -21,12 +21,37 @@ public class Player
   public int Attack(Enemy target)
   {
     Random rand = new Random();
-    int damageDealt = rand.Next(this.EquippedWeapon.MinDamange, this.EquippedWeapon.MaxDamage + 1);
+    int damageDealt = rand.Next(this.EquippedWeapon.MinDamage, this.EquippedWeapon.MaxDamage + 1);
     target.TakeDamage(damageDealt);
     if (target.IsAlive == false)
     {
       this.DefeatedEnemies++;
     }
     return damageDealt;
+  }
+
+  public void TakeDamage(int damage, Enemy attacker)
+  {
+    this.CurrentHealth = this.CurrentHealth - damage;
+    Interface.WriteLine($"{attacker.Name} greift Dich an! Du erhälst {damage} Schadenspunkte.");
+    this.CheckDeath();
+  }
+
+  public void CheckDeath()
+  {
+    if (this.CurrentHealth <= 0)
+    {
+      Interface.WriteLine("Du bist tot!");
+      this.EndGame();
+    }
+  }
+
+  public void EndGame()
+  {
+    Interface.WriteLine("+---------+ Game Over +---------+", ConsoleColor.Magenta);
+    Interface.WriteLine($"Dein Held: {this.Name}, {this.Class.Name} und {this.Origin.Race} aus dem {this.Origin.Homeland}");
+    Interface.WriteLine($"Besiegte Gegner: {this.DefeatedEnemies}");
+    Interface.WriteLine("+-------------------------------+", ConsoleColor.Magenta);
+    Environment.Exit(0);
   }
 }

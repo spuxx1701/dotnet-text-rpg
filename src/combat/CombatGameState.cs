@@ -1,5 +1,10 @@
 public class CombatGameState : GameState
 {
+  public Player player;
+  public Enemy[] enemies = DetermineEnemies();
+  public bool playerIsFleeing = false;
+
+
   public override string ActionName
   {
     get
@@ -10,29 +15,52 @@ public class CombatGameState : GameState
 
   public override void Start(Player player)
   {
-    Console.WriteLine("Du suchst Dir jemanden zum Raufen.");
-    Enemy[] enemies = this.DetermineEnemies();
-    this.DisplayEnemies(enemies);
+    this.player = player;
+    Interface.WriteLine("Du suchst Dir jemanden zum Raufen. Du triffst auf folgende raufwillige Gegner:");
     Boolean atLeastOneEnemyAlive = true;
     while (atLeastOneEnemyAlive)
     {
-      StartCombatRound(player, enemies);
+      this.DisplayEnemies();
+      if (this.playerIsFleeing)
+      {
+        Interface.WriteLine("Du bist erfolgreich geflohen. Du Feigling!");
+        return;
+      }
+      StartCombatRound();
       atLeastOneEnemyAlive = enemies.Any(enemy => enemy.IsAlive);
     }
-    Console.WriteLine("Du hast alle Gegner besiegt. Reschbeggt!");
+    Interface.WriteLine("Du hast alle Gegner besiegt. Reschbeggt!");
   }
 
-  private void StartCombatRound(Player player, Enemy[] enemies)
+  private void StartCombatRound()
   {
-    Console.WriteLine("Welchen Gegner möchtest Du angreifen?");
-    Enemy[] aliveEnemies = enemies.Where(enemy => enemy.IsAlive).ToArray();
-    string[] targetOptions = aliveEnemies.Select(enemy => $"{enemy.Name} (HP: {enemy.CurrentHealth}/{enemy.MaxHealth})").ToArray();
-    int targetSelection = Interface.AskForSelection(targetOptions);
-    Enemy selectedTarget = aliveEnemies[targetSelection];
-    player.Attack(selectedTarget);
+    StartPlayerTurn();
+    StartEnemyTurn();
   }
 
-  public Enemy[] DetermineEnemies()
+  private void StartPlayerTurn()
+  {
+    Interface.WriteLine($"Deine Lebenspunkte: ({player.CurrentHealth}/{player.MaxHealth})", ConsoleColor.Green);
+    CombatAction[] availableActions = [new AttackCombatAction(), new FleeCombatAction()];
+
+    string[] actionOptions = availableActions.Select(action => action.ActionName).ToArray();
+    int actionSelection = Interface.AskForSelection(actionOptions);
+
+    CombatAction selectedAction = availableActions[actionSelection];
+    selectedAction.Perform(this);
+  }
+
+  private void StartEnemyTurn()
+  {
+    if (this.playerIsFleeing) return;
+    Enemy[] enmiesThatCanAttack = enemies.Where(enemy => enemy.IsAlive).ToArray();
+    foreach (Enemy enemy in enmiesThatCanAttack)
+    {
+      enemy.Attack(player);
+    }
+  }
+
+  static public Enemy[] DetermineEnemies()
   {
     // Create an array of enemy types
     Type[] enemyTypes = [typeof(BrawlerEnemy), typeof(DogEnemy), typeof(WhoreEnemy)];
@@ -64,8 +92,20 @@ public class CombatGameState : GameState
     return selectedEnemies.ToArray();
   }
 
-  public void DisplayEnemies(Enemy[] enemies)
+  public void DisplayEnemies()
   {
-    Console.WriteLine($"Du triffst auf folgende raufwillige Gegner: {string.Join(", ", enemies.Select(e => e.Name))}");
+    for (int i = 0; i < enemies.Length; i++)
+    {
+      Enemy enemy = enemies[i];
+      if (enemy.IsAlive)
+      {
+        Interface.WriteLine($"{enemy.Name} (HP: {enemy.CurrentHealth}/{enemy.MaxHealth})", ConsoleColor.Red);
+      }
+      else
+      {
+        Interface.WriteLine($"{enemy.Name} 💀", ConsoleColor.DarkRed);
+      }
+
+    }
   }
 }

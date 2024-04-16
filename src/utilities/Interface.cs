@@ -1,5 +1,13 @@
 public static class Interface
 {
+  public static void WriteLine(string message, ConsoleColor textColor = ConsoleColor.Gray, ConsoleColor? backgroundColor = null)
+  {
+    Console.ForegroundColor = textColor;
+    if (backgroundColor != null) Console.BackgroundColor = (ConsoleColor)backgroundColor;
+    Console.WriteLine(message);
+    Console.ResetColor();
+  }
+
   public static int AskForSelection(string[] options)
   {
     while (true)
@@ -16,22 +24,22 @@ public static class Interface
           int outputLength = output.Length;
           string separator = $"+{new string('-', outputLength - 2)}+";
           // If the selection is valid
-          Console.WriteLine(separator);
-          Console.WriteLine(output);
-          Console.WriteLine(separator);
+          Interface.WriteLine(separator, ConsoleColor.DarkGray);
+          Interface.WriteLine(output, ConsoleColor.DarkGray);
+          Interface.WriteLine(separator, ConsoleColor.DarkGray);
           return selection;
         }
         else
         {
           // If the selection isn't valid
-          Console.WriteLine($"⚠ Bitte gib eine Zahl zwischen 0 und {options.Length - 1} ein. ⚠");
+          Interface.WriteLine($"⚠ Bitte gib eine Zahl zwischen 0 und {options.Length - 1} ein. ⚠", ConsoleColor.Red);
           continue;
         }
       }
       else
       {
         // If it didn't work
-        Console.WriteLine("⚠ Bitte gib eine Zahl ein. ⚠");
+        Interface.WriteLine("⚠ Bitte gib eine Zahl ein. ⚠", ConsoleColor.Red);
         continue;
       }
     }
@@ -39,11 +47,11 @@ public static class Interface
 
   private static void ShowOptions(string[] options)
   {
-    Console.WriteLine("Triff eine Auswahl:");
+    Interface.WriteLine("Triff eine Auswahl:");
     for (int i = 0; i < options.Length; i++)
     {
       string option = options[i];
-      Console.WriteLine($"[{i}] {option}");
+      Interface.WriteLine($"[{i}] {option}", ConsoleColor.Yellow);
     }
   }
 }
