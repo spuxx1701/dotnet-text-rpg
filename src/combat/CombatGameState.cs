@@ -16,20 +16,23 @@ public class CombatGameState : GameState
   public override void Start(Player player)
   {
     this.player = player;
-    Interface.WriteLine("Du suchst Dir jemanden zum Raufen. Du triffst auf folgende raufwillige Gegner:");
+    Interface.WriteLine("Du suchst Dir jemanden zum Raufen. Du triffst auf folgende raufwillige Gegner:", 1000);
     Boolean atLeastOneEnemyAlive = true;
-    while (atLeastOneEnemyAlive)
+    while (atLeastOneEnemyAlive && !this.playerIsFleeing)
     {
       this.DisplayEnemies();
-      if (this.playerIsFleeing)
-      {
-        Interface.WriteLine("Du bist erfolgreich geflohen. Du Feigling!");
-        return;
-      }
       StartCombatRound();
       atLeastOneEnemyAlive = enemies.Any(enemy => enemy.IsAlive);
     }
-    Interface.WriteLine("Du hast alle Gegner besiegt. Reschbeggt!");
+    if (playerIsFleeing)
+    {
+      Interface.WriteLine("Du bist erfolgreich geflohen. Du Feigling!", 1000);
+    }
+    else if (!atLeastOneEnemyAlive)
+    {
+      Interface.WriteLine("Du hast alle Gegner besiegt. Reschbeggt!", 1000);
+    }
+    EndGameState();
   }
 
   private void StartCombatRound()
@@ -40,7 +43,7 @@ public class CombatGameState : GameState
 
   private void StartPlayerTurn()
   {
-    Interface.WriteLine($"Deine Lebenspunkte: ({player.CurrentHealth}/{player.MaxHealth})", ConsoleColor.Green);
+    Interface.WriteLine($"Deine Lebenspunkte: ({player.CurrentHealth}/{player.MaxHealth})", 0, ConsoleColor.Green);
     CombatAction[] availableActions = [new AttackCombatAction(), new FleeCombatAction()];
 
     string[] actionOptions = availableActions.Select(action => action.ActionName).ToArray();
@@ -99,11 +102,11 @@ public class CombatGameState : GameState
       Enemy enemy = enemies[i];
       if (enemy.IsAlive)
       {
-        Interface.WriteLine($"{enemy.Name} (HP: {enemy.CurrentHealth}/{enemy.MaxHealth})", ConsoleColor.Red);
+        Interface.WriteLine($"{enemy.Name} (HP: {enemy.CurrentHealth}/{enemy.MaxHealth})", 0, ConsoleColor.Red);
       }
       else
       {
-        Interface.WriteLine($"{enemy.Name} 💀", ConsoleColor.DarkRed);
+        Interface.WriteLine($"{enemy.Name} 💀", 0, ConsoleColor.DarkRed);
       }
 
     }

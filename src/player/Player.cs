@@ -33,7 +33,7 @@ public class Player
   public void TakeDamage(int damage, Enemy attacker)
   {
     this.CurrentHealth = this.CurrentHealth - damage;
-    Interface.WriteLine($"{attacker.Name} greift Dich an! Du erhälst {damage} Schadenspunkte.");
+    Interface.WriteLine($"{attacker.Name} greift Dich an! Du erhälst {damage} Schadenspunkte.", 500);
     this.CheckDeath();
   }
 
@@ -41,17 +41,17 @@ public class Player
   {
     if (this.CurrentHealth <= 0)
     {
-      Interface.WriteLine("Du bist tot!");
+      Interface.WriteLine("Du bist tot!", 500);
       this.EndGame();
     }
   }
 
   public void EndGame()
   {
-    Interface.WriteLine("+---------+ Game Over +---------+", ConsoleColor.Magenta);
-    Interface.WriteLine($"Dein Held: {this.Name}, {this.Class.Name} und {this.Origin.Race} aus dem {this.Origin.Homeland}");
-    Interface.WriteLine($"Besiegte Gegner: {this.DefeatedEnemies}");
-    Interface.WriteLine("+-------------------------------+", ConsoleColor.Magenta);
+    Interface.WriteLine("+---------+ Game Over +---------+", 1000, ConsoleColor.Magenta);
+    Interface.WriteLine($"Dein Held: {this.Name}, {this.Class.Name} und {this.Origin.Race} aus dem {this.Origin.Homeland}", 0, ConsoleColor.Magenta);
+    Interface.WriteLine($"Besiegte Gegner: {this.DefeatedEnemies}", 0, ConsoleColor.Magenta);
+    Interface.WriteLine("+-------------------------------+", 0, ConsoleColor.Magenta);
     Environment.Exit(0);
   }
 }

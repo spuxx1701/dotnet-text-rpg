@@ -10,7 +10,7 @@ public class AttackCombatAction : CombatAction
 
   public override void Perform(CombatGameState combatGameState)
   {
-    Interface.WriteLine("Welchen Gegner möchtest Du angreifen?");
+    Interface.WriteLine("Welchen Gegner möchtest Du angreifen?", 0);
     Enemy[] aliveEnemies = combatGameState.enemies.Where(enemy => enemy.IsAlive).ToArray();
     string[] targetOptions = aliveEnemies.Select(enemy => $"{enemy.Name} (HP: {enemy.CurrentHealth}/{enemy.MaxHealth})").ToArray();
     int targetSelection = Interface.AskForSelection(targetOptions);

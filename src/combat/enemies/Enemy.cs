@@ -23,10 +23,10 @@ public abstract class Enemy
   public void TakeDamage(int damage)
   {
     this.CurrentHealth = CurrentHealth - damage;
-    Interface.WriteLine($"Du greifst {this.Name} an und verursachst {damage} Schadenspunkte.");
+    Interface.WriteLine($"Du greifst {this.Name} an und verursachst {damage} Schadenspunkte.", 500);
     if (this.IsAlive == false)
     {
-      Interface.WriteLine($"Du hast {this.Name} besiegt!");
+      Interface.WriteLine($"Du hast {this.Name} besiegt!", 500);
     }
   }
 

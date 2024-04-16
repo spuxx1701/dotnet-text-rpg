@@ -1,7 +1,8 @@
 public static class Interface
 {
-  public static void WriteLine(string message, ConsoleColor textColor = ConsoleColor.Gray, ConsoleColor? backgroundColor = null)
+  public static void WriteLine(string message, int delay, ConsoleColor textColor = ConsoleColor.Gray, ConsoleColor? backgroundColor = null)
   {
+    Thread.Sleep(delay);
     Console.ForegroundColor = textColor;
     if (backgroundColor != null) Console.BackgroundColor = (ConsoleColor)backgroundColor;
     Console.WriteLine(message);
@@ -24,22 +25,22 @@ public static class Interface
           int outputLength = output.Length;
           string separator = $"+{new string('-', outputLength - 2)}+";
           // If the selection is valid
-          Interface.WriteLine(separator, ConsoleColor.DarkGray);
-          Interface.WriteLine(output, ConsoleColor.DarkGray);
-          Interface.WriteLine(separator, ConsoleColor.DarkGray);
+          Interface.WriteLine(separator, 0, ConsoleColor.DarkGray);
+          Interface.WriteLine(output, 0, ConsoleColor.DarkGray);
+          Interface.WriteLine(separator, 0, ConsoleColor.DarkGray);
           return selection;
         }
         else
         {
           // If the selection isn't valid
-          Interface.WriteLine($"⚠ Bitte gib eine Zahl zwischen 0 und {options.Length - 1} ein. ⚠", ConsoleColor.Red);
+          Interface.WriteLine($"⚠ Bitte gib eine Zahl zwischen 0 und {options.Length - 1} ein. ⚠", 0, ConsoleColor.Red);
           continue;
         }
       }
       else
       {
         // If it didn't work
-        Interface.WriteLine("⚠ Bitte gib eine Zahl ein. ⚠", ConsoleColor.Red);
+        Interface.WriteLine("⚠ Bitte gib eine Zahl ein. ⚠", 0, ConsoleColor.Red);
         continue;
       }
     }
@@ -47,11 +48,12 @@ public static class Interface
 
   private static void ShowOptions(string[] options)
   {
-    Interface.WriteLine("Triff eine Auswahl:");
+    Interface.WriteLine("Triff eine Auswahl:", 0);
+    Thread.Sleep(1000);
     for (int i = 0; i < options.Length; i++)
     {
       string option = options[i];
-      Interface.WriteLine($"[{i}] {option}", ConsoleColor.Yellow);
+      Interface.WriteLine($"[{i}] {option}", 100, ConsoleColor.Yellow);
     }
   }
 }

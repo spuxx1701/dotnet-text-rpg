@@ -10,9 +10,10 @@ public class HealingGameState : GameState
 
   public override void Start(Player player)
   {
-    Interface.WriteLine("Du setzt Dich ans Feuer und ruhst Dich aus.");
+    Interface.WriteLine("Du setzt Dich ans Feuer und ruhst Dich aus.", 1000);
     int regeneratedHealth = player.MaxHealth - player.CurrentHealth;
     player.CurrentHealth = player.MaxHealth;
-    Interface.WriteLine($"Du fühlst Dich ausgeruht. Du hast {regeneratedHealth} Lebenspunkte wiederhergestellt. Du stehst wieder auf.");
+    Interface.WriteLine($"Du fühlst Dich ausgeruht. Du hast {regeneratedHealth} Lebenspunkte wiederhergestellt. Du stehst wieder auf.", 1000);
+    EndGameState();
   }
 }

@@ -10,7 +10,7 @@ public class ExitGameState : GameState
 
   public override void Start(Player player)
   {
-    Interface.WriteLine("Du verlässt das Wirtshaus. Das Spiel ist vorbei.");
+    Interface.WriteLine("Du verlässt das Wirtshaus. Das Spiel ist vorbei.", 1000);
     player.EndGame();
   }
 }
